@@ -1,0 +1,39 @@
+name: 더스틴 챗봇 품질 검증
+
+on:
+  # 매일 한국시간 오전 9시 자동 실행 (UTC 00:00 = KST 09:00)
+  schedule:
+    - cron: '0 0 * * 1-5'  # 평일만
+
+  # 수동 실행 (테스트용)
+  workflow_dispatch:
+    inputs:
+      branch_code:
+        description: '점포 코드 (0002=잠실, 0001=본점)'
+        required: false
+        default: '0002'
+
+jobs:
+  chatbot-qa-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 설치
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 라이브러리 설치
+        run: pip install -r requirements.txt
+
+      - name: 챗봇 품질 검증 실행
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BRANCH_CODE: ${{ github.event.inputs.branch_code || '0002' }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python main.py
