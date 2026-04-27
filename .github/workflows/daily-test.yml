@@ -3,7 +3,7 @@ name: 더스틴 챗봇 품질 검증
 on:
   # 매일 한국시간 오전 9시 자동 실행 (UTC 00:00 = KST 09:00)
   schedule:
-    - cron: '0 0 * * 1-5'  # 평일만
+    - cron: '0 0 * * *'  # 매일 실행
 
   # 수동 실행 (테스트용)
   workflow_dispatch:
