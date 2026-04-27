@@ -370,7 +370,7 @@ def main():
         })
 
         # API 호출 간격 (Gemini 무료 티어 10 RPM 보호)
-        time.sleep(8)
+        time.sleep(15)
 
     # 결과 저장
     print("=" * 50)
