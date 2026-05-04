@@ -150,13 +150,14 @@ def parse_sse_response(response):
 def ask_chatbot(question_text, session_id, auth_token=""):
     """더스틴 챗봇 API에 질문을 보내고 답변을 받습니다."""
 
-headers = {
-    "Content-Type": "application/json",
-    "Accept": "text/event-stream",
-    "Origin": "https://m.lotteshopping.com",
-    "Referer": "https://m.lotteshopping.com/chatbot/aiChatbot?cstrCd=0002",
-    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
-}
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "text/event-stream",
+        "Origin": "https://m.lotteshopping.com",
+        "Referer": "https://m.lotteshopping.com/chatbot/aiChatbot?cstrCd=0002",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
+    }
+
     if auth_token:
         headers["Authorization"] = f"Bearer {auth_token}"
 
@@ -179,12 +180,11 @@ headers = {
             headers=headers,
             json=payload,
             timeout=60,
-            stream=True,  # SSE 스트리밍 수신
+            stream=True,
         )
         response.raise_for_status()
         elapsed = round(time.time() - start_time, 2)
 
-        # SSE 응답 파싱
         result = parse_sse_response(response)
 
         return {
@@ -194,7 +194,7 @@ headers = {
             "elapsed": elapsed,
             "error": None,
         }
-
+        
     except Exception as e:
         elapsed = round(time.time() - start_time, 2)
         return {
