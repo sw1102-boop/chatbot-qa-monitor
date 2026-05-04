@@ -153,7 +153,7 @@ def ask_chatbot(question_text, session_id, auth_token=""):
 headers = {
     "Content-Type": "application/json",
     "Accept": "text/event-stream",
-    "Origin": "https://m.lotteshopping.com",         ← 이게 있어야 해요
+    "Origin": "https://m.lotteshopping.com",
     "Referer": "https://m.lotteshopping.com/chatbot/aiChatbot?cstrCd=0002",
     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
 }
